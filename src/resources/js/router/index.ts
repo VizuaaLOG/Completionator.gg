@@ -6,6 +6,7 @@ import LoginScreen from '@/screens/Login/LoginScreen.vue';
 import LibraryScreen from '@/screens/Library/LibraryScreen.vue';
 import FavouritesScreen from '@/screens/Favourites/FavouritesScreen.vue';
 import CategoriesScreen from '@/screens/Categories/CategoriesScreen.vue';
+import games from '@/router/games';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -46,6 +47,8 @@ const router = createRouter({
             name: 'categories',
             component: CategoriesScreen,
         },
+
+        ...games,
     ],
 });
 
