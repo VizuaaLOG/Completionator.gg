@@ -3,9 +3,6 @@ import FirstTimeSetupScreen from '@/screens/FirstTimeSetup/FirstTimeSetupScreen.
 import {useAuthStore} from '@/stores/auth';
 import HomeScreen from '@/screens/Home/HomeScreen.vue';
 import LoginScreen from '@/screens/Login/LoginScreen.vue';
-import LibraryScreen from '@/screens/Library/LibraryScreen.vue';
-import FavouritesScreen from '@/screens/Favourites/FavouritesScreen.vue';
-import CategoriesScreen from '@/screens/Categories/CategoriesScreen.vue';
 import games from '@/router/games';
 
 const router = createRouter({
@@ -35,17 +32,17 @@ const router = createRouter({
         {
             path: '/library',
             name: 'library',
-            component: LibraryScreen,
+            component: HomeScreen,
         },
         {
             path: '/favourites',
             name: 'favourites',
-            component: FavouritesScreen,
+            component: HomeScreen,
         },
         {
             path: '/categories',
             name: 'categories',
-            component: CategoriesScreen,
+            component: HomeScreen,
         },
 
         ...games,

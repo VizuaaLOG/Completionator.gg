@@ -8,11 +8,8 @@
             </div>
         </div>
     </div>
-
-    <Categories />
 </template>
 
 <script lang="ts" setup>
-    import Categories from '@/screens/Home/components/Categories.vue';
     import GameCard from '@/components/games/GameCard.vue';
 </script>

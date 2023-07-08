@@ -1,13 +1,13 @@
 <template>
-    <div class="bg-body h-100 overflow-hidden d-flex flex-column">
+    <div class="bg-body h-100 overflow-x-hidden d-flex flex-column">
         <TopBar />
 
         <div class="row flex-nowrap" style="margin-top: 56px;">
-            <div class="col col-md-3 col-xl-2 d-none d-md-flex">
+            <div class="col-auto d-none d-md-flex">
                 <SideMenu />
             </div>
 
-            <div class="col col-md-9 col-xl-10 overflow-y-auto main-content-wrapper">
+            <div class="col overflow-y-auto main-content-wrapper pb-5">
                 <RouterView />
             </div>
         </div>
@@ -66,3 +66,9 @@
         }
     });
 </script>
+
+<style lang="scss" scoped>
+    .main-content-wrapper {
+        max-height: calc(100vh - 56px);
+    }
+</style>
