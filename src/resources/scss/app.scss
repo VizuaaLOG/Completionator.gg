@@ -3,3 +3,18 @@
 .bg-overlay {
     background-color: rgba(0, 0, 0, 0.7);
 }
+
+.menu-link {
+    @extend .rounded, .px-2, .py-1;
+
+    margin-left: 1.8rem;
+
+    &:hover, &.router-link-active {
+        background-color: rgba($blue-500, 0.5) !important;
+        color: $light-text-emphasis-dark !important;
+    }
+}
+
+.side-menu-wrapper {
+    max-height: calc(100vh - 56px);
+}

@@ -27,9 +27,14 @@ class PlatformController extends Controller
     {
         return $this->fractalResponse(
             request: $request,
-            data: $this->platformService->paginated($this->getPerPageCount($request)),
+            data: $this->platformService->all(),
             transformer: new PlatformTransformer,
         );
+    }
+
+    public function create()
+    {
+        return view('platforms.form');
     }
 
     public function store(CreatePlatformRequest $request): JsonResponse
@@ -52,13 +57,9 @@ class PlatformController extends Controller
         }
     }
 
-    public function show(Request $request, Platform $platform): JsonResponse
+    public function show(Request $request)
     {
-        return $this->fractalResponse(
-            request: $request,
-            data: $platform,
-            transformer: new PlatformTransformer,
-        );
+        return view('platforms.show');
     }
 
     public function update(UpdatePlatformRequest $request, Platform $platform): JsonResponse

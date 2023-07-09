@@ -11,9 +11,9 @@ use App\Exceptions\ErrorUpdatingEntityException;
 
 class PlatformService
 {
-    public function paginated(int|null $perPage = null): LengthAwarePaginator
+    public function all(): Collection
     {
-        return Platform::paginate($perPage ?? config('pagination.default'));
+        return Platform::all();
     }
 
     public function create(array $data): Platform

@@ -32,6 +32,10 @@ class GameController extends Controller
         );
     }
 
+    public function create() {
+        return view('games.form');
+    }
+
     public function store(CreateGameRequest $request): JsonResponse
     {
         try {
@@ -52,13 +56,9 @@ class GameController extends Controller
         }
     }
 
-    public function show(Request $request, Game $game): JsonResponse
+    public function show(Request $request)
     {
-        return $this->fractalResponse(
-            request: $request,
-            data: $game,
-            transformer: new GameTransformer(),
-        );
+        return view('games.show');
     }
 
     public function update(UpdateGameRequest $request, Game $game): JsonResponse
