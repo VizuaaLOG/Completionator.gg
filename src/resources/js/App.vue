@@ -2,8 +2,8 @@
     <div class="bg-body h-100 overflow-x-hidden d-flex flex-column">
         <TopBar />
 
-        <div class="row flex-nowrap" style="margin-top: 56px;">
-            <div class="col-auto d-none d-md-flex">
+        <div class="row flex-nowrap h-100" style="margin-top: 56px;">
+            <div class="col-auto d-none d-md-flex bg-dark-subtle h-100">
                 <SideMenu />
             </div>
 
