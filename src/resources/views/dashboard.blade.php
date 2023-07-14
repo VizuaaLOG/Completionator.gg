@@ -1,7 +1,7 @@
 @extends('base')
 
 @section('content')
-    <div class="mb-3 mt-3">
+    <x-layout.screen>
         <h2 class="fw-normal">Currently Playing</h2>
 
         <div class="row flex-nowrap overflow-x-auto pb-3">
@@ -21,5 +21,5 @@
                 </a>
             </div>
         </div>
-    </div>
+    </x-layout.screen>
 @endsection

@@ -15,7 +15,7 @@
     }}
 </head>
 <body class="h-100">
-<div class="bg-body h-100 overflow-x-hidden d-flex flex-column">
+<div class="bg-body h-100 overflow-hidden d-flex flex-column">
     <nav class="navbar navbar-expand fixed-top bg-body-tertiary">
         <div class="container-fluid">
             <RouterLink :to="{ name: 'home' }"
@@ -62,7 +62,6 @@
     <div class="row flex-nowrap h-100" style="margin-top: 56px;">
         <div class="col-auto d-none d-md-flex bg-dark-subtle h-100">
             <div class="side-menu-wrapper ps-3 py-3 overflow-y-auto">
-                <!-- Example split danger button -->
                 <div class="btn-group w-100">
                     <a href="{{ route('games.create') }}"
                        class="btn btn-primary"
@@ -195,7 +194,9 @@
             </div>
         </div>
 
-        <div class="col overflow-y-auto main-content-wrapper pb-5 ps-3 pe-4">
+        <div class="col overflow-y-auto overflow-x-hidden main-content-wrapper pb-5 px-0 position-relative"
+             style="margin-right: 12px;"
+        >
             @yield('content')
         </div>
     </div>

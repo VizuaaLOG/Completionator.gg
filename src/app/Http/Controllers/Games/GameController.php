@@ -6,14 +6,12 @@ use Log;
 use Throwable;
 use App\Models\Game;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Services\GameService;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Games\CreateGameRequest;
 use App\Http\Requests\Games\UpdateGameRequest;
-use App\Http\Transformers\ExceptionTransformer;
-use App\Http\Transformers\Games\GameTransformer;
 
 class GameController extends Controller
 {
@@ -23,77 +21,43 @@ class GameController extends Controller
     {
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): View
     {
-        return $this->fractalResponse(
-            request: $request,
-            data: $this->gameService->paginated($this->getPerPageCount($request)),
-            transformer: new GameTransformer,
-        );
+        $games = $this->gameService->paginated();
+        return view('dashboard');
     }
 
     public function create() {
         return view('games.form');
     }
 
-    public function store(CreateGameRequest $request): JsonResponse
+    public function store(CreateGameRequest $request): RedirectResponse
     {
-        try {
-            return $this->fractalResponse(
-                request: $request,
-                data: $this->gameService->create($request->all()),
-                transformer: new GameTransformer,
-                status: Response::HTTP_CREATED,
-            );
-        } catch(Throwable $e) {
-            Log::error($e);
-            return $this->fractalResponse(
-                request: $request,
-                data: $e,
-                transformer: new ExceptionTransformer,
-                status: Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
+//        $this->gameService->create($request->all())
+
+        return redirect()->route('games.index');
     }
 
-    public function show(Request $request)
+    public function show(Request $request): View
     {
         return view('games.show');
     }
 
-    public function update(UpdateGameRequest $request, Game $game): JsonResponse
+    public function update(UpdateGameRequest $request, Game $game): RedirectResponse
     {
-        try {
-            return $this->fractalResponse(
-                request: $request,
-                data: $this->gameService->update($game, $request->all()),
-                transformer: new GameTransformer(),
-                status: Response::HTTP_OK,
-            );
-        } catch(Throwable $e) {
-            Log::error($e);
-            return $this->fractalResponse(
-                request: $request,
-                data: $e,
-                transformer: new ExceptionTransformer,
-                status: Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
+//        $this->gameService->update($game, $request->all())
+
+        return redirect()->route('games.index');
     }
 
-    public function destroy(Request $request, Game $game): JsonResponse
+    public function destroy(Request $request, Game $game): RedirectResponse
     {
         try {
             $this->gameService->delete($game);
-            return response()->json();
         } catch (Throwable $e) {
             Log::error($e);
-            return $this->fractalResponse(
-                request: $request,
-                data: $e,
-                transformer: new ExceptionTransformer,
-                status: Response::HTTP_INTERNAL_SERVER_ERROR
-            );
         }
+
+        return redirect()->route('games.index');
     }
 }

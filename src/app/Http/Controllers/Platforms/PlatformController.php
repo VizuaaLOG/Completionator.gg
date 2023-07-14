@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Platforms;
 
-use Log;
-use Throwable;
 use App\Models\Platform;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use App\Services\PlatformService;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
-use App\Http\Transformers\ExceptionTransformer;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Platforms\CreatePlatformRequest;
 use App\Http\Requests\Platforms\UpdatePlatformRequest;
-use App\Http\Transformers\Platforms\PlatformTransformer;
 
 class PlatformController extends Controller
 {
@@ -23,13 +19,10 @@ class PlatformController extends Controller
     {
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): View
     {
-        return $this->fractalResponse(
-            request: $request,
-            data: $this->platformService->all(),
-            transformer: new PlatformTransformer,
-        );
+        return view('dashboard');
+//        return $this->platformService->all();
     }
 
     public function create()
@@ -37,64 +30,26 @@ class PlatformController extends Controller
         return view('platforms.form');
     }
 
-    public function store(CreatePlatformRequest $request): JsonResponse
+    public function store(CreatePlatformRequest $request): RedirectResponse
     {
-        try {
-            return $this->fractalResponse(
-                request: $request,
-                data: $this->platformService->create($request->all()),
-                transformer: new PlatformTransformer,
-                status: Response::HTTP_CREATED,
-            );
-        } catch(Throwable $e) {
-            Log::error($e);
-            return $this->fractalResponse(
-                request: $request,
-                data: $e,
-                transformer: new ExceptionTransformer,
-                status: Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
+        $this->platformService->create($request->all());
+        return redirect()->route('platforms.index');
     }
 
-    public function show(Request $request)
+    public function show(Request $request): View
     {
         return view('platforms.show');
     }
 
-    public function update(UpdatePlatformRequest $request, Platform $platform): JsonResponse
+    public function update(UpdatePlatformRequest $request, Platform $platform): RedirectResponse
     {
-        try {
-            return $this->fractalResponse(
-                request: $request,
-                data: $this->platformService->update($platform, $request->all()),
-                transformer: new PlatformTransformer,
-                status: Response::HTTP_OK,
-            );
-        } catch(Throwable $e) {
-            Log::error($e);
-            return $this->fractalResponse(
-                request: $request,
-                data: $e,
-                transformer: new ExceptionTransformer,
-                status: Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
+        $this->platformService->update($platform, $request->all());
+        return redirect()->route('platforms.index');
     }
 
-    public function destroy(Request $request, Platform $platform): JsonResponse
+    public function destroy(Request $request, Platform $platform): RedirectResponse
     {
-        try {
-            $this->platformService->delete($platform);
-            return response()->json();
-        } catch (Throwable $e) {
-            Log::error($e);
-            return $this->fractalResponse(
-                request: $request,
-                data: $e,
-                transformer: new ExceptionTransformer,
-                status: Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
+        $this->platformService->delete($platform);
+        return redirect()->route('platforms.index');
     }
 }

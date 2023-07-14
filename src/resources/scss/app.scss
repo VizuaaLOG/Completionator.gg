@@ -1,4 +1,6 @@
 @import 'bootstrap/scss/bootstrap';
+@import './tom-select/tom-select.bootstrap5';
+@import 'flatpickr/dist/themes/dark.css';
 
 .bg-overlay {
     background-color: rgba(0, 0, 0, 0.7);
