@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label for="{{ $name }}" class="form-label">
+    <label for="{{ $nameDot }}" class="form-label">
         {{ $label }}
         @if($attributes->has('required'))
             <sup>*</sup>
@@ -9,9 +9,10 @@
     <div @class([
         'input-group' => $addon->isNotEmpty(),
     ])>
-        <input id="{{ $name }}"
+        <input id="{{ $nameDot }}"
                name="{{ $name }}"
                value="{{ $value() }}"
+               placeholder="{{ $label }}"
                {{
                    $attributes
                        ->class([

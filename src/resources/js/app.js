@@ -5,7 +5,7 @@ import flatpickr from "flatpickr";
 
 document.querySelectorAll('.tomselect')
     .forEach((selectField) => {
-        let plugins = ['dropdown_input', 'clear_button'];
+        let plugins = ['clear_button'];
         if(selectField.multiple) {
             plugins.push('remove_button');
         }

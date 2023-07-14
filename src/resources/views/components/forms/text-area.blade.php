@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label for="{{ $name }}" class="form-label">
+    <label for="{{ $nameDot }}" class="form-label">
         {{ $label }}
         @if($attributes->has('required'))
             <sup>*</sup>
@@ -10,8 +10,9 @@
         'input-group' => $addon->isNotEmpty(),
     ])>
         <textarea
-            id="{{ $name }}"
+            id="{{ $nameDot }}"
             name="{{ $name }}"
+            placeholder="{{ $label }}"
             {{
                 $attributes
                     ->class([
