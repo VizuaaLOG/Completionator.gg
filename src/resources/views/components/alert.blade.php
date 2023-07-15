@@ -8,5 +8,5 @@
             'alert-success' => $type->isSuccess(),
         ])
 }}>
-    {{ $message }}
+    {{ $message ?? $slot }}
 </div>

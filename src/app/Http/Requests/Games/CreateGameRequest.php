@@ -29,24 +29,33 @@ class CreateGameRequest extends FormRequest
                 'string',
                 'max:200',
             ],
-            'platform_ids' => [
+            'platforms' => [
                 'required',
                 'array',
                 'min:1',
             ],
-            'platform_ids.*' => [
-                'integer',
+            'platforms.*' => [
+                'numeric',
+                Rule::exists('platforms', 'id'),
+            ],
+            'storefronts' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+            'storefronts.*' => [
+                'numeric',
                 Rule::exists('platforms', 'id'),
             ],
             'description'    => [
                 'nullable',
                 'string',
             ],
-            'status_id' => [
-                'sometimes',
+            'status' => [
+                'required',
                 Rule::exists('game_statuses', 'id'),
             ],
-            'priority_id' => [
+            'priority' => [
                 'sometimes',
                 Rule::exists('game_priorities', 'id'),
             ],

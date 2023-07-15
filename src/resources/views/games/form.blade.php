@@ -38,6 +38,16 @@
                                 ]
                             ]" />
 
+            <x-forms.select name="priority"
+                            label="Priority"
+                            required
+                            :options="[
+                                [
+                                    'label' => 'Hello',
+                                    'value' => 1,
+                                ]
+                            ]" />
+
             <x-forms.date-input name="purchase_date" label="Purchase Date" />
             <x-forms.date-input name="release_date" label="Release Date" />
 

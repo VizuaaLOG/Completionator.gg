@@ -14,7 +14,7 @@ enum AlertType {
         if(Str::startsWith($name, 'is')) {
             $type = Str::replace('is', '', $name);
             $constant = constant("self::$type");
-            return $this instanceof $constant;
+            return $this === $constant;
         }
     }
 }

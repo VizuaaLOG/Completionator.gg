@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Platforms;
 
+use Log;
+use Throwable;
 use App\Models\Platform;
 use Illuminate\Http\Request;
 use App\Services\PlatformService;
@@ -32,8 +34,22 @@ class PlatformController extends Controller
 
     public function store(CreatePlatformRequest $request): RedirectResponse
     {
-        $this->platformService->create($request->all());
-        return redirect()->route('platforms.index');
+        try {
+            $this->platformService->create($request->all());
+
+            return redirect()
+                ->route('platforms.index')
+                ->with('success', "Platform \"{$request->get('name')}\" has been created.");
+        } catch(Throwable $e) {
+            Log::error($e);
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors([
+                    'message' => 'Error occurred while creating the platform. Try again, or check the logs if this persists.',
+                ]);
+        }
     }
 
     public function show(Request $request): View

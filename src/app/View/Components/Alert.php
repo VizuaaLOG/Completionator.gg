@@ -14,7 +14,7 @@ class Alert extends Component
      */
     public function __construct(
         public AlertType $type = AlertType::Info,
-        public string $message = '',
+        public string|null $message = null,
     )
     {}
 

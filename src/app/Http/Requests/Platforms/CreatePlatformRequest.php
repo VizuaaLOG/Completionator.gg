@@ -32,6 +32,14 @@ class CreatePlatformRequest extends FormRequest
                 'nullable',
                 'string',
             ],
+            'purchase_date' => [
+                'nullable',
+                'date_format:Y-m-d',
+            ],
+            'release_date' => [
+                'nullable',
+                'date_format:Y-m-d',
+            ],
         ];
     }
 }

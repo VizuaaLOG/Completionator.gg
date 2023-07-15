@@ -2,7 +2,7 @@
 
 @section('content')
     <x-layout.screen title="Add Platform">
-        <x-forms.form action="{{ route('games.store') }}">
+        <x-forms.form action="{{ route('platforms.store') }}">
             <x-forms.input name="name" label="Name" required />
             <x-forms.text-area name="description" label="Description" />
             <x-forms.date-input name="purchase_date" label="Purchase Date" />
