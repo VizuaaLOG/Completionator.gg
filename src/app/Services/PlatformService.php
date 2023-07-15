@@ -21,6 +21,9 @@ class PlatformService
         return Platform::create(Arr::only($data, [
             'name',
             'description',
+            'manufacturer',
+            'purchase_date',
+            'release_date',
         ]));
     }
 
@@ -32,6 +35,9 @@ class PlatformService
         $updated = $platform->update(Arr::only($data, [
             'name',
             'description',
+            'manufacturer',
+            'purchase_date',
+            'release_date',
         ]));
 
         if(!$updated) {

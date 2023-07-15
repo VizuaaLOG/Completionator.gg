@@ -61,137 +61,7 @@
 
     <div class="row flex-nowrap h-100" style="margin-top: 56px;">
         <div class="col-auto d-none d-md-flex bg-dark-subtle h-100">
-            <div class="side-menu-wrapper ps-3 py-3 overflow-y-auto">
-                <div class="btn-group w-100">
-                    <a href="{{ route('games.create') }}"
-                       class="btn btn-primary"
-                    >
-                        Add Game
-                    </a>
-
-                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        <span class="visually-hidden">Toggle Dropdown</span>
-                    </button>
-
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Add Collection</a></li>
-                        <li><a class="dropdown-item" href="{{ route('platforms.create') }}">Add Platform</a></li>
-                    </ul>
-                </div>
-
-                <ul class="list-unstyled d-flex flex-column gap-4 mt-4">
-                    <li class="d-flex flex-column gap-2">
-                        <a href="{{ route('dashboard') }}"
-                           class="menu-link ms-0 text-body text-decoration-none d-flex justify-content-between align-items-center"
-                        >
-                            <strong>Your Dashboard</strong>
-                        </a>
-                    </li>
-
-                    <li class="d-flex flex-column gap-1">
-                        <a href="#"
-                           class="menu-link ms-0 text-body text-decoration-none d-flex justify-content-between align-items-center"
-                        >
-                            <strong class="flex-grow-1">Backlog</strong>
-
-                            <div class="badge text-bg-secondary">23</div>
-                        </a>
-
-                        <ul class="list-unstyled d-flex flex-column gap-1">
-                            <li>
-                                <a href="#"
-                                   class="menu-link text-body text-decoration-none d-flex justify-content-between align-items-center"
-                                >
-                                    Playing
-
-                                    <div class="badge text-bg-secondary">23</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="menu-link text-body text-decoration-none d-flex justify-content-between align-items-center"
-                                >
-                                    Completed
-
-                                    <div class="badge text-bg-secondary">23</div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="menu-link text-body text-decoration-none d-flex justify-content-between align-items-center"
-                                >
-                                    Retired
-
-                                    <div class="badge text-bg-secondary">23</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="d-flex flex-column gap-2">
-                        <strong>
-                            <a href="#"
-                               class="menu-link ms-0 text-body text-decoration-none"
-                            >
-                                Platforms
-                            </a>
-                        </strong>
-
-                        <ul class="list-unstyled d-flex flex-column gap-2">
-                            <li>
-                                <a href="#"
-                                   class="menu-link text-body text-decoration-none"
-                                >
-                                    Gaming Rig
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="menu-link text-body text-decoration-none"
-                                >
-                                    Xbox
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="menu-link text-body text-decoration-none"
-                                >
-                                    Android
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="d-flex flex-column gap-2">
-                        <strong>
-                            <a href="#"
-                               class="menu-link ms-0 text-body text-decoration-none"
-                            >
-                                Collections
-                            </a>
-                        </strong>
-
-                        <ul class="list-unstyled d-flex flex-column gap-2">
-                            <li>
-                                <a href="#"
-                                   class="menu-link text-body text-decoration-none"
-                                >
-                                    Perfection
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   class="menu-link text-body text-decoration-none"
-                                >
-                                    Halo
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+            <x-layout.side-menu.side-menu />
         </div>
 
         <div class="col overflow-y-auto overflow-x-hidden main-content-wrapper pb-5 px-0 position-relative"
@@ -201,5 +71,7 @@
         </div>
     </div>
 </div>
+
+@stack('modals')
 </body>
 </html>

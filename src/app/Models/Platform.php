@@ -12,6 +12,11 @@ class Platform extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'purchase_date' => 'date',
+        'release_date' => 'date',
+    ];
+
     public function games(): BelongsToMany
     {
         return $this->belongsToMany(Game::class);
