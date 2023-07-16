@@ -21,7 +21,24 @@ class Game extends Model implements HasMedia
     protected $casts = [
         'release_date' => 'date',
         'purchase_date' => 'date',
+        'completed_at' => 'datetime',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        self::saving(function(Game $game) {
+            if(
+                $game->status_id == GameStatus::COMPLETED
+                && is_null($game->completed_at)
+            ) {
+                $game->completed_at = now();
+            } else if($game->status_id != GameStatus::COMPLETED) {
+                $game->completed_at = null;
+            }
+        });
+    }
 
     public function platforms(): BelongsToMany
     {

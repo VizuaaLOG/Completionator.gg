@@ -25,6 +25,8 @@ class Select extends BaseField
 
         if(is_array($value)) {
             $this->value = collect($value);
+        } else if(empty($value) && $this->multiple) {
+            $this->value = collect();
         }
     }
 

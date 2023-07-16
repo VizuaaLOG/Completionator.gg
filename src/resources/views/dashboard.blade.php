@@ -1,25 +1,41 @@
 @extends('base')
 
 @section('content')
-    <x-layout.screen>
-        <h2 class="fw-normal">Currently Playing</h2>
+    <x-layout.screen class="d-flex flex-column gap-5">
+        @if($currentlyPlaying->isNotEmpty())
+            <div>
+                <h2 class="fw-normal">Currently Playing</h2>
 
-        <div class="row flex-nowrap overflow-x-auto pb-3">
-            <div class="col-3 col-lg-3 col-xxl-1">
-                <a href="{{ route('games.show', ['game' => 1]) }}"
-                   class="text-decoration-none rounded"
-                >
-                    <div class="rounded overflow-hidden mb-2">
-                        <picture>
-                            <source media="(max-width: 576px)" srcset="https://placehold.it/90x180" />
-                            <img alt="Podcast Name" class="w-100" src="https://placehold.it/160x240">
-                        </picture>
-                    </div>
-
-                    <h3 class="fs-6 fw-normal mb-1 text-body">Game Name</h3>
-                    <p class="mb-0 text-muted">Platform</p>
-                </a>
+                <div class="row">
+                    @foreach($currentlyPlaying as $game)
+                        <x-games.card :game="$game" />
+                    @endforeach
+                </div>
             </div>
-        </div>
+        @endif
+
+        @if($recentlyAdded->isNotEmpty())
+            <div>
+                <h2 class="fw-normal">Recently Added</h2>
+
+                <div class="row">
+                    @foreach($recentlyAdded as $game)
+                        <x-games.card :game="$game" />
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        @if($recentlyCompleted->isNotEmpty())
+            <div>
+                <h2 class="fw-normal">Recently Completed</h2>
+
+                <div class="row">
+                    @foreach($recentlyCompleted as $game)
+                        <x-games.card :game="$game" />
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </x-layout.screen>
 @endsection

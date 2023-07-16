@@ -45,6 +45,11 @@
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">
+                            <strong>Completed Date</strong>
+                            {{ $game->completed_at?->toDateTimeString() ?? '-' }}
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
                             <strong>Genre</strong>
                             Adventure, Shooter
                         </li>
