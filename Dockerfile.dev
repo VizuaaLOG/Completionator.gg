@@ -51,11 +51,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 # Copy INI file which overwrites some setting such as upload size
 COPY ./.docker/php.ini-development "$PHP_INI_DIR/php.ini"
 
-COPY ./src /var/www/html/
-RUN mkdir /var/www/html/public/media
-RUN chown -R www-data:www-data /var/www/html
+# Add application - This is for dev purposes so a volume will be mounted
+#COPY ./ /var/www/html/
 
-VOLUME /var/www/html/public/media
-
-RUN echo "Installing dependencies..."
-RUN composer install --no-cache --no-dev
+# Composer install  - This is for dev purposes so a volume will be mounted
+#RUN echo "Installing dependencies..."
+#RUN composer install --no-cache --no-dev

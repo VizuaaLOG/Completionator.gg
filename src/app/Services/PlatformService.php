@@ -51,6 +51,8 @@ class PlatformService
             if(Arr::has($data, 'hero')) {
                 $platform->addMedia(Arr::get($data, 'hero'))->toMediaCollection('hero');
             }
+
+            return $platform;
         });
     }
 

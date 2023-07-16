@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: completionator
+      MYSQL_USER: completionator
+      MYSQL_PASSWORD: password
+    volumes:
+      - completionator-db:/var/lib/mysql
+    ports:
+      - '3306:3306'
+  fpm:
+    build:
+      dockerfile: ./Dockerfile.dev
+      context: .
+    volumes:
+      - ./src/:/var/www/html
+    depends_on:
+      - db
+    links:
+      - db
+  nginx:
+    image: nginx:1.18
+    volumes:
+      - ./src/:/var/www/html
+      - ./.docker/nginx-dev.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - fpm
+    links:
+      - fpm
+    ports:
+      - '80:80'
+    networks:
+      default:
+        aliases:
+          - completionator.test
+
+volumes:
+  completionator-db:

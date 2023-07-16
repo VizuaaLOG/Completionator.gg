@@ -21,7 +21,7 @@
             <RouterLink :to="{ name: 'home' }"
                         class="navbar-brand"
             >
-                Completionist
+                Completionator
             </RouterLink>
 
             <div class="d-flex flex-grow-1 align-items-center gap-3 justify-content-end">
