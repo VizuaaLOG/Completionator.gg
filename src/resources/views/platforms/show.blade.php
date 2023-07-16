@@ -43,6 +43,11 @@
                             <strong>Release Date</strong>
                             {{ $platform->release_date?->toDateString() ?? '-' }}
                         </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Manufacturer</strong>
+                            {{ $platform->manufacturer ?? '-' }}
+                        </li>
                     </ul>
                 </div>
 
