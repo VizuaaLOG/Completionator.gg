@@ -12,9 +12,11 @@ use App\Exceptions\ErrorUpdatingEntityException;
 
 class PlatformService
 {
-    public function all(): Collection
+    public function all(array $counts = []): Collection
     {
-        return Platform::all();
+        return Platform::query()
+            ->withCount($counts)
+            ->get();
     }
 
     public function create(array $data): Platform
@@ -54,12 +56,10 @@ class PlatformService
             }
 
             if(Arr::has($data, 'cover')) {
-                $platform->clearMediaCollection('cover');
                 $platform->addMedia(Arr::get($data, 'cover'))->toMediaCollection('cover');
             }
 
             if(Arr::has($data, 'hero')) {
-                $platform->clearMediaCollection('hero');
                 $platform->addMedia(Arr::get($data, 'hero'))->toMediaCollection('hero');
             }
         });

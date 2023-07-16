@@ -24,16 +24,6 @@
 
         <x-alert :type="\App\Enums\Components\AlertType::Danger"
                  message="The form has errors. Please see details below" />
-    @elseif($errors->has('message'))
-        <x-alert :type="\App\Enums\Components\AlertType::Danger"
-                 :message="$errors->get('message')" />
-    @endif
-
-    @if(Session::has('success'))
-        <x-alert :type="\App\Enums\Components\AlertType::Success"
-                 :message="Session::get('success')" />
-
-        @php Session::forget('success') @endphp
     @endif
 
     {{ $slot }}

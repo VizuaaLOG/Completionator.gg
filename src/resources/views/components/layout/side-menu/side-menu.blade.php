@@ -15,6 +15,7 @@
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Add Collection</a></li>
             <li><a class="dropdown-item" href="{{ route('platforms.create') }}">Add Platform</a></li>
+            <li><a class="dropdown-item" href="{{ route('storefronts.create') }}">Add Storefront</a></li>
         </ul>
     </div>
 
@@ -31,5 +32,10 @@
             title="Platforms"
             route="platforms.index"
             :children="$platforms()" />
+
+        <x-layout.side-menu.side-menu-group
+            title="Storefronts"
+            route="storefronts.index"
+            :children="$storefronts()" />
     </ul>
 </div>

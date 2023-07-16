@@ -6,7 +6,8 @@
 }}>
     @if($errors->has('message'))
         <x-alert :type="\App\Enums\Components\AlertType::Danger"
-                 :message="$errors->get('message')" />
+                 :message="$errors->first('message')"
+                 class="mx-n3 rounded-0" />
     @endif
 
     @if(Session::has('success'))

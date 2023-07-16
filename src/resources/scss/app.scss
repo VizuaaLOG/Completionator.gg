@@ -1,5 +1,26 @@
 $enable-negative-margins: true;
 
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+$utilities: map-merge(
+        $utilities,
+        (
+            "subtle-background-color": map-merge(
+                    map-get($utilities, "subtle-background-color"),
+                    (
+                        state: hover,
+                    ),
+            ),
+        )
+);
+
+@import "bootstrap/scss/utilities/api";
+
 @import 'bootstrap/scss/bootstrap';
 @import './tom-select/tom-select.bootstrap5';
 @import 'flatpickr/dist/themes/dark.css';
