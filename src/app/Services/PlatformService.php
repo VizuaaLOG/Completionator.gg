@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use DB;
 use App\Models\Platform;
 use Illuminate\Support\Arr;
 use App\Exceptions\EntityInUseException;
@@ -18,31 +19,50 @@ class PlatformService
 
     public function create(array $data): Platform
     {
-        return Platform::create(Arr::only($data, [
-            'name',
-            'description',
-            'manufacturer',
-            'purchase_date',
-            'release_date',
-        ]));
+        return DB::transaction(function() use($data) {
+            $platform = Platform::create(Arr::only($data, [
+                'name',
+                'description',
+                'manufacturer',
+                'purchase_date',
+                'release_date',
+            ]));
+
+            if(Arr::has($data, 'cover')) {
+                $platform->addMedia(Arr::get($data, 'cover'))->toMediaCollection('cover');
+            }
+
+            if(Arr::has($data, 'hero')) {
+                $platform->addMedia(Arr::get($data, 'hero'))->toMediaCollection('hero');
+            }
+        });
     }
 
-    /**
-     * @throws ErrorUpdatingEntityException
-     */
     public function update(Platform $platform, array $data): Platform
     {
-        $updated = $platform->update(Arr::only($data, [
-            'name',
-            'description',
-            'manufacturer',
-            'purchase_date',
-            'release_date',
-        ]));
+        DB::transaction(function() use($platform, $data) {
+            $updated = $platform->update(Arr::only($data, [
+                'name',
+                'description',
+                'manufacturer',
+                'purchase_date',
+                'release_date',
+            ]));
 
-        if(!$updated) {
-            throw ErrorUpdatingEntityException::withEntity($platform);
-        }
+            if(!$updated) {
+                throw ErrorUpdatingEntityException::withEntity($platform);
+            }
+
+            if(Arr::has($data, 'cover')) {
+                $platform->clearMediaCollection('cover');
+                $platform->addMedia(Arr::get($data, 'cover'))->toMediaCollection('cover');
+            }
+
+            if(Arr::has($data, 'hero')) {
+                $platform->clearMediaCollection('hero');
+                $platform->addMedia(Arr::get($data, 'hero'))->toMediaCollection('hero');
+            }
+        });
 
         return $platform->fresh();
     }

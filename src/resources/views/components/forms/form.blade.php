@@ -2,6 +2,7 @@
       method="{{ $method }}"
       novalidate
       autocomplete="off"
+      enctype="multipart/form-data"
 >
     @csrf
 

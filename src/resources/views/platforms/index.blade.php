@@ -9,10 +9,7 @@
                        class="text-decoration-none rounded"
                     >
                         <div class="rounded overflow-hidden mb-2">
-                            <picture>
-                                <source media="(max-width: 576px)" srcset="https://placehold.it/180x180" />
-                                <img alt="Podcast Name" class="w-100" src="https://placehold.it/240x240">
-                            </picture>
+                            <img alt="{{ $platform->name }}" class="w-100" src="{{ $platform->getFirstMediaUrl('cover', 'thumb') }}">
                         </div>
 
                         <h3 class="fs-6 fw-normal mb-1 text-body">{{ $platform->name }}</h3>

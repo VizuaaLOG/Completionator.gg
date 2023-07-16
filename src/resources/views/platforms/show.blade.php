@@ -3,11 +3,7 @@
 @section('content')
     <x-layout.screen>
         <div class="position-relative mx-n3">
-            <picture>
-                <source media="(max-width: 576px)" srcset="https://placehold.it/800x400" />
-                <img alt="Podcast Name" class="w-100" src="https://placehold.it/1200x400">
-            </picture>
-
+            <img alt="{{ $platform->name }} Hero Image" class="w-100" src="{{ $platform->getFirstMediaUrl('hero', 'default') }}">
             <div class="bg-overlay position-absolute top-0 start-0 w-100 h-100"></div>
         </div>
 
@@ -17,10 +13,7 @@
                     <div class="rounded overflow-hidden"
                          style="margin-top: -200px"
                     >
-                        <picture>
-                            <source media="(max-width: 576px)" srcset="https://placehold.it/180x180" />
-                            <img alt="Podcast Name" class="w-100" src="https://placehold.it/160x160">
-                        </picture>
+                        <img alt="{{ $platform->name }} Cover Image" class="w-100" src="{{ $platform->getFirstMediaUrl('cover', 'default') }}">
                     </div>
 
                     <div class="text-center mt-3">

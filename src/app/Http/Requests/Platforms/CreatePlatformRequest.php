@@ -40,6 +40,14 @@ class CreatePlatformRequest extends FormRequest
                 'nullable',
                 'date_format:Y-m-d',
             ],
+            'cover' => [
+                'nullable',
+                'image',
+            ],
+            'hero' => [
+                'nullable',
+                'image',
+            ],
         ];
     }
 }

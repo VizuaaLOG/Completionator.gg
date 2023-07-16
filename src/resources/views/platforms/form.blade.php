@@ -10,8 +10,8 @@
             <x-forms.text-area name="description" label="Description" :value="empty($platform) ? '' : $platform->description" />
             <x-forms.date-input name="purchase_date" label="Purchase Date" :value="empty($platform) ? '' : $platform->purchase_date" />
             <x-forms.date-input name="release_date" label="Release Date" :value="empty($platform) ? '' : $platform->release_date" />
-            <x-forms.input type="file" name="cover_image" label="Cover" />
-            <x-forms.input type="file" name="hero_image" label="Hero Image" />
+            <x-forms.input type="file" name="cover" label="Cover" />
+            <x-forms.input type="file" name="hero" label="Hero Image" />
         </x-forms.form>
     </x-layout.screen>
 @endsection
