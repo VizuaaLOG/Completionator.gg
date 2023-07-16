@@ -61,5 +61,5 @@ docker exec -it completionatorgg-fpm-1 php artisan app:create-admin
 
 ## Screenshots
 ![dashboard](/screenshots/dashboard.jpg?raw=true "Dashboard")
-![dashboard](/screenshots/game view.jpg?raw=true "Dashboard")
-![dashboard](/screenshots/game edit.jpg?raw=true "Dashboard")
+![dashboard](/screenshots/game-view.jpg?raw=true "Dashboard")
+![dashboard](/screenshots/game-edit.jpg?raw=true "Dashboard")
