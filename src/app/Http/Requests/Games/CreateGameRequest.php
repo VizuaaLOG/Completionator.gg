@@ -45,18 +45,18 @@ class CreateGameRequest extends FormRequest
             ],
             'storefronts.*' => [
                 'numeric',
-                Rule::exists('platforms', 'id'),
+                Rule::exists('storefronts', 'id'),
             ],
             'description'    => [
                 'nullable',
                 'string',
             ],
-            'status' => [
+            'status_id' => [
                 'required',
                 Rule::exists('game_statuses', 'id'),
             ],
-            'priority' => [
-                'sometimes',
+            'priority_id' => [
+                'nullable',
                 Rule::exists('game_priorities', 'id'),
             ],
         ];

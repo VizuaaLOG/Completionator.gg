@@ -1,7 +1,7 @@
 @extends('base')
 
 @section('content')
-    <x-layout.screen :title="empty($platform) ? 'Add Platform' : 'Edit ' . $platform->name" >
+    <x-layout.screen :title="empty($platform) ? 'Add Platform' : 'Edit ' . $platform->name">
         <x-forms.form action="{{ !empty($platform) ? route('platforms.update', ['platform' => $platform]) : route('platforms.store') }}">
             @if(!empty($platform)) @method('PATCH') @endif
 

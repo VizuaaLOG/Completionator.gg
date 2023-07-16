@@ -6,16 +6,30 @@ use DB;
 use App\Models\Storefront;
 use Illuminate\Support\Arr;
 use App\Exceptions\EntityInUseException;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection as SupportCollection;
 use App\Exceptions\ErrorUpdatingEntityException;
 
 class StorefrontService
 {
-    public function all(array $counts = []): Collection
+    public function all(array $counts = []): EloquentCollection
     {
         return Storefront::query()
             ->withCount($counts)
             ->get();
+    }
+
+    public function allForDropdown(): SupportCollection
+    {
+        return Storefront::query()
+            ->orderBy('name')
+            ->get()
+            ->map(function(Storefront $storefront) {
+                return [
+                    'label' => $storefront->name,
+                    'value' => $storefront->id,
+                ];
+            });
     }
 
     public function create(array $data): Storefront

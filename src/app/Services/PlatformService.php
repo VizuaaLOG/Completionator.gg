@@ -6,17 +6,31 @@ use DB;
 use App\Models\Platform;
 use Illuminate\Support\Arr;
 use App\Exceptions\EntityInUseException;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Exceptions\ErrorUpdatingEntityException;
 
 class PlatformService
 {
-    public function all(array $counts = []): Collection
+    public function all(array $counts = []): EloquentCollection
     {
         return Platform::query()
             ->withCount($counts)
             ->get();
+    }
+
+    public function allForDropdown(): SupportCollection
+    {
+        return Platform::query()
+            ->orderBy('name')
+            ->get()
+            ->map(function(Platform $platform) {
+                return [
+                    'label' => $platform->name,
+                    'value' => $platform->id,
+                ];
+            });
     }
 
     public function create(array $data): Platform

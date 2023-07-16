@@ -32,6 +32,11 @@ class Platform extends Model implements HasMedia
      */
     public function registerMediaConversions(Media $media = null): void
     {
+        $this->addMediaConversion('icon')
+            ->performOnCollections('cover')
+            ->orientation(Manipulations::ORIENTATION_AUTO)
+            ->fit(Manipulations::FIT_CROP, 64, 64);
+
         $this->addMediaConversion('thumb')
             ->performOnCollections('cover')
             ->orientation(Manipulations::ORIENTATION_AUTO)
@@ -54,8 +59,10 @@ class Platform extends Model implements HasMedia
              ->singleFile()
              ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/platform_default.jpg", 'default')
              ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/platform_thumb.jpg", 'thumb')
+             ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/platform_icon.jpg", 'icon')
              ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/platform_default.jpg", 'default')
-             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/platform_thumb.jpg", 'thumb');
+             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/platform_thumb.jpg", 'thumb')
+             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/platform_icon.jpg", 'icon');
 
         $this->addMediaCollection('hero')
              ->singleFile()

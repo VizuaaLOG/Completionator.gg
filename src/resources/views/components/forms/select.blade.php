@@ -38,7 +38,7 @@
                                 && $value() == $option['value']
                             ) || (
                                 $multiple
-                                && in_array($option['value'], $value())
+                                && $value()->contains($option['value'])
                             )
                         )
                 >

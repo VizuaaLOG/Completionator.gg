@@ -4,10 +4,10 @@ namespace App\Services;
 
 use DB;
 use App\Models\Game;
-use App\Models\Platform;
 use App\Models\GameStatus;
 use Illuminate\Support\Arr;
 use App\Models\GamePriority;
+use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Exceptions\ErrorUpdatingEntityException;
 
@@ -20,25 +20,26 @@ class GameService
 
     public function create(array $data): Game
     {
-        // Set default
-        if(empty(Arr::get($data, 'status_id'))) {
-            $data['status_id'] = GameStatus::BACKLOG;
-        }
-
-        if(empty(Arr::get($data, 'priority_id'))) {
-            $data['priority_id'] = GamePriority::LOW;
-        }
-
         return DB::transaction(function() use($data) {
             $game = Game::create(Arr::only($data, [
                 'name',
                 'description',
                 'status_id',
                 'priority_id',
+                'purchase_date',
+                'release_date',
             ]));
 
-            // Attach to platforms
-            $game->platforms()->sync(Arr::get($data, 'platform_ids'));
+            $game->platforms()->sync(Arr::get($data, 'platforms'));
+            $game->storefronts()->sync(Arr::get($data, 'storefronts'));
+
+            if(Arr::has($data, 'cover')) {
+                $game->addMedia(Arr::get($data, 'cover'))->toMediaCollection('cover');
+            }
+
+            if(Arr::has($data, 'hero')) {
+                $game->addMedia(Arr::get($data, 'hero'))->toMediaCollection('hero');
+            }
 
             return $game;
         });
@@ -58,9 +59,15 @@ class GameService
                 throw ErrorUpdatingEntityException::withEntity($game);
             }
 
-            if(Arr::has($data, 'platform_ids')) {
-                // Attach to platforms
-                $game->platforms()->sync(Arr::get($data, 'platform_ids'));
+            $game->platforms()->sync(Arr::get($data, 'platforms'));
+            $game->storefronts()->sync(Arr::get($data, 'storefronts'));
+
+            if(Arr::has($data, 'cover')) {
+                $game->addMedia(Arr::get($data, 'cover'))->toMediaCollection('cover');
+            }
+
+            if(Arr::has($data, 'hero')) {
+                $game->addMedia(Arr::get($data, 'hero'))->toMediaCollection('hero');
             }
 
             return $game->fresh();
@@ -72,15 +79,29 @@ class GameService
         return $game->delete();
     }
 
-    public function attachToPlatforms(Game $game, array $platformIds): bool
+    public function statusesForDropdown(): SupportCollection
     {
-        $game->platforms()->syncWithoutDetaching($platformIds);
-        return true;
+        return GameStatus::query()
+            ->orderBy('name')
+            ->get()
+            ->map(function(GameStatus $gameStatus) {
+                return [
+                    'label' => $gameStatus->name,
+                    'value' => $gameStatus->id,
+                ];
+            });
     }
 
-    public function detachFromPlatforms(Game $game, array $platformIds): bool
+    public function prioritiesForDropdown(): SupportCollection
     {
-        $game->platforms()->detach($platformIds);
-        return true;
+        return GamePriority::query()
+            ->orderBy('name')
+            ->get()
+            ->map(function(GamePriority $gamePriority) {
+                return [
+                    'label' => $gamePriority->name,
+                    'value' => $gamePriority->id,
+                ];
+            });
     }
 }

@@ -1,7 +1,7 @@
 <div {{
     $attributes
         ->class([
-            'px-3'
+            'px-3 pb-5'
         ])
 }}>
     @if($errors->has('message'))

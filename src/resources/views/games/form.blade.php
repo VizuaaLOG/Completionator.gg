@@ -1,91 +1,82 @@
 @extends('base')
 
 @section('content')
-    <x-layout.screen title="Add Game">
-        <x-forms.form action="{{ route('games.store') }}">
-            <x-forms.input name="name" label="Name" required />
-            <x-forms.text-area name="description" label="Description" />
+    <x-layout.screen :title="empty($game) ? 'Add Game' : 'Edit ' . $game->name">
+        <x-forms.form :action="!empty($game) ? route('games.update', ['game' => $game]) : route('games.store')">
+            @if(!empty($game)) @method('PATCH') @endif
 
-            <x-forms.select name="storefronts[]"
-                            label="Storefronts"
-                            required
-                            multiple
-                            :options="[
-                                [
-                                    'label' => 'Hello',
-                                    'value' => 1,
-                                ]
-                            ]" />
+            <div class="row">
+                <div class="col-12 col-md-9">
+                    <x-forms.input name="name" label="Name" required :value="empty($game) ? '' : $game->name" />
+                    <x-forms.text-area name="description" label="Description" :value="empty($game) ? '' : $game->description" />
 
-            <x-forms.select name="platforms[]"
-                            label="Platforms"
-                            required
-                            multiple
-                            :options="[
-                                [
-                                    'label' => 'Hello',
-                                    'value' => 1,
-                                ]
-                            ]" />
+                    <x-forms.select name="storefronts[]"
+                                    label="Storefronts"
+                                    required
+                                    multiple
+                                    :options="$storefronts"
+                                    :value="empty($game) ? '' : $game->storefronts->pluck('id')" />
 
-            <x-forms.select name="status"
-                            label="Status"
-                            required
-                            :options="[
-                                [
-                                    'label' => 'Hello',
-                                    'value' => 1,
-                                ]
-                            ]" />
+                    <x-forms.select name="platforms[]"
+                                    label="Platforms"
+                                    required
+                                    multiple
+                                    :options="$platforms"
+                                    :value="empty($game) ? '' : $game->platforms->pluck('id')" />
 
-            <x-forms.select name="priority"
-                            label="Priority"
-                            required
-                            :options="[
-                                [
-                                    'label' => 'Hello',
-                                    'value' => 1,
-                                ]
-                            ]" />
+                    <x-forms.select name="status_id"
+                                    label="Status"
+                                    required
+                                    :options="$statuses"
+                                    :value="empty($game) ? '' : $game->status_id" />
 
-            <x-forms.date-input name="purchase_date" label="Purchase Date" />
-            <x-forms.date-input name="release_date" label="Release Date" />
+                    <x-forms.select name="priority_id"
+                                    label="Priority"
+                                    :options="$priorities"
+                                    :value="empty($game) ? '' : $game->priority_id" />
 
-            <x-forms.select name="genres[]"
-                            label="Genre"
-                            required
-                            multiple
-                            :options="[
-                                [
-                                    'label' => 'Hello',
-                                    'value' => 1,
-                                ]
-                            ]" />
+                    <x-forms.date-input name="purchase_date" label="Purchase Date" :value="empty($game) ? '' : $game->purchase_date" />
+                    <x-forms.date-input name="release_date" label="Release Date" :value="empty($game) ? '' : $game->release_date" />
 
-            <x-forms.select name="developers[]"
-                            label="Developer"
-                            required
-                            multiple
-                            :options="[
-                                [
-                                    'label' => 'Hello',
-                                    'value' => 1,
-                                ]
-                            ]" />
+                    <x-forms.select name="genres[]"
+                                    label="Genre"
+                                    required
+                                    multiple
+                                    :options="[
+                                        [
+                                            'label' => 'Hello',
+                                            'value' => 1,
+                                        ]
+                                    ]" />
 
-            <x-forms.select name="publishers[]"
-                            label="Publishers"
-                            required
-                            multiple
-                            :options="[
-                                [
-                                    'label' => 'Hello',
-                                    'value' => 1,
-                                ]
-                            ]" />
+                    <x-forms.select name="developers[]"
+                                    label="Developer"
+                                    required
+                                    multiple
+                                    :options="[
+                                        [
+                                            'label' => 'Hello',
+                                            'value' => 1,
+                                        ]
+                                    ]" />
 
-            <x-forms.input type="file" name="cover_image" label="Cover" />
-            <x-forms.input type="file" name="hero_image" label="Hero Image" />
+                    <x-forms.select name="publishers[]"
+                                    label="Publishers"
+                                    required
+                                    multiple
+                                    :options="[
+                                        [
+                                            'label' => 'Hello',
+                                            'value' => 1,
+                                        ]
+                                    ]" />
+                </div>
+
+                <div class="col-12 col-md-3">
+                    <x-forms.image-upload name="cover" label="Cover" collection="cover" conversion="default" :entity="!empty($game) ? $game : null" />
+                    <x-forms.image-upload name="hero" label="Hero" collection="hero" conversion="default" :entity="!empty($game) ? $game : null" />
+                </div>
+            </div>
         </x-forms.form>
     </x-layout.screen>
 @endsection
