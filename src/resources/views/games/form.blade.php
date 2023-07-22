@@ -15,14 +15,14 @@
                                     required
                                     multiple
                                     :options="$storefronts"
-                                    :value="empty($game) ? '' : $game->storefronts->pluck('id')" />
+                                    :value="empty($game) ? '' : $game->storefronts()->pluck('storefronts.id')" />
 
                     <x-forms.select name="platforms[]"
                                     label="Platforms"
                                     required
                                     multiple
                                     :options="$platforms"
-                                    :value="empty($game) ? '' : $game->platforms->pluck('id')" />
+                                    :value="empty($game) ? '' : $game->platforms()->pluck('platforms.id')" />
 
                     <x-forms.select name="status_id"
                                     label="Status"
@@ -53,23 +53,15 @@
                                     label="Developer"
                                     required
                                     multiple
-                                    :options="[
-                                        [
-                                            'label' => 'Hello',
-                                            'value' => 1,
-                                        ]
-                                    ]" />
+                                    :options="$companies"
+                                    :value="empty($game) ? '' : $game->developers()->pluck('companies.id')" />
 
                     <x-forms.select name="publishers[]"
                                     label="Publishers"
                                     required
                                     multiple
-                                    :options="[
-                                        [
-                                            'label' => 'Hello',
-                                            'value' => 1,
-                                        ]
-                                    ]" />
+                                    :options="$companies"
+                                    :value="empty($game) ? '' : $game->publishers()->pluck('companies.id')" />
                 </div>
 
                 <div class="col-12 col-md-3">

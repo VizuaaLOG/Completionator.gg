@@ -47,6 +47,24 @@ class CreateGameRequest extends FormRequest
                 'numeric',
                 Rule::exists('storefronts', 'id'),
             ],
+            'developers' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+            'developers.*' => [
+                'numeric',
+                Rule::exists('companies', 'id'),
+            ],
+            'publishers' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+            'publishers.*' => [
+                'numeric',
+                Rule::exists('companies', 'id'),
+            ],
             'description'    => [
                 'nullable',
                 'string',

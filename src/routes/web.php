@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Games\GameController;
 use App\Http\Controllers\Platforms\PlatformController;
 use App\Http\Controllers\Storefronts\StorefrontController;
@@ -14,4 +15,5 @@ Route::middleware('auth')->group(function() {
     Route::resource('games', GameController::class);
     Route::resource('platforms', PlatformController::class);
     Route::resource('storefronts', StorefrontController::class);
+    Route::resource('companies', CompanyController::class);
 });

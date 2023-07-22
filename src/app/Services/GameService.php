@@ -58,6 +58,8 @@ class GameService
 
             $game->platforms()->sync(Arr::get($data, 'platforms'));
             $game->storefronts()->sync(Arr::get($data, 'storefronts'));
+            $game->publishers()->sync(Arr::get($data, 'publishers'));
+            $game->developers()->sync(Arr::get($data, 'developers'));
 
             if(Arr::has($data, 'cover')) {
                 $game->addMedia(Arr::get($data, 'cover'))->toMediaCollection('cover');
@@ -89,6 +91,8 @@ class GameService
 
             $game->platforms()->sync(Arr::get($data, 'platforms'));
             $game->storefronts()->sync(Arr::get($data, 'storefronts'));
+            $game->publishers()->sync(Arr::get($data, 'publishers'));
+            $game->developers()->sync(Arr::get($data, 'developers'));
 
             if(Arr::has($data, 'cover')) {
                 $game->addMedia(Arr::get($data, 'cover'))->toMediaCollection('cover');

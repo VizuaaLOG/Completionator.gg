@@ -56,12 +56,22 @@
 
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Developer</strong>
-                            Arkane Studios
+                            @forelse($game->developers as $developer)
+                                <a href="{{ route('companies.show', ['company' => $developer]) }}">{{ $developer->name }}</a>
+                                @if(!$loop->last),@endif
+                            @empty
+                                -
+                            @endforelse
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Publisher</strong>
-                            Bethesda Softworks
+                            @forelse($game->publishers as $publisher)
+                                <a href="{{ route('companies.show', ['company' => $publisher]) }}">{{ $publisher->name }}</a>
+                                @if(!$loop->last),@endif
+                            @empty
+                                -
+                            @endforelse
                         </li>
                     </ul>
 

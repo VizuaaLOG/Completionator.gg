@@ -60,6 +60,16 @@ class Game extends Model implements HasMedia
         return $this->belongsTo(GamePriority::class);
     }
 
+    public function developers(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class, 'game_developers');
+    }
+
+    public function publishers(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class, 'game_publishers');
+    }
+
     /**
      * @throws InvalidManipulation
      */

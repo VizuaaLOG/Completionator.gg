@@ -7,6 +7,7 @@ use Throwable;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use App\Services\GameService;
+use App\Services\CompanyService;
 use App\Services\PlatformService;
 use Illuminate\Contracts\View\View;
 use App\Services\StorefrontService;
@@ -21,6 +22,7 @@ class GameController extends Controller
         protected readonly GameService $gameService,
         protected readonly PlatformService $platformService,
         protected readonly StorefrontService $storefrontService,
+        protected readonly CompanyService $companyService,
     )
     {
     }
@@ -38,9 +40,10 @@ class GameController extends Controller
             'storefronts' => $this->storefrontService->allForDropdown(),
             'statuses' => $this->gameService->statusesForDropdown(),
             'priorities' => $this->gameService->prioritiesForDropdown(),
+            'companies' => $this->companyService->getForDropdown(),
         ]);
     }
-//Deathloop transports players to the lawless island of Blackreef in an eternal struggle between two extraordinary assassins. Explore stunning environments and meticulously designed levels in an immersive gameplay experience that lets you approach every situation any way you like. Hunt down targets all over the island in an effort to put an end to the cycle once and for all, and remember, if at first you don’t succeed… die, die again.
+
     public function store(CreateGameRequest $request): RedirectResponse
     {
         try {
@@ -75,6 +78,7 @@ class GameController extends Controller
             'storefronts' => $this->storefrontService->allForDropdown(),
             'statuses' => $this->gameService->statusesForDropdown(),
             'priorities' => $this->gameService->prioritiesForDropdown(),
+            'companies' => $this->companyService->getForDropdown(),
         ]);
     }
 
