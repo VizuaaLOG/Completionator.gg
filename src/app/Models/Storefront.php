@@ -37,7 +37,7 @@ class Storefront extends Model implements HasMedia
     {
         $this->addMediaCollection('icon')
              ->singleFile()
-             ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/storefront_default.jpg", 'default')
-             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/storefront_default.jpg", 'default');
+             ->useFallbackPath(public_path("fallback-media/storefront_default.jpg"), 'default')
+             ->useFallbackUrl(asset("fallback-media/storefront_default.jpg"), 'default');
     }
 }

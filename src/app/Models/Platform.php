@@ -57,16 +57,16 @@ class Platform extends Model implements HasMedia
     {
         $this->addMediaCollection('cover')
              ->singleFile()
-             ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/platform_default.jpg", 'default')
-             ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/platform_thumb.jpg", 'thumb')
-             ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/platform_icon.jpg", 'icon')
-             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/platform_default.jpg", 'default')
-             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/platform_thumb.jpg", 'thumb')
-             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/platform_icon.jpg", 'icon');
+             ->useFallbackPath(public_path('fallback-media/platform_hero_default.jpg'), 'default')
+             ->useFallbackPath(public_path('fallback-media/platform_thumb.jpg'), 'thumb')
+             ->useFallbackPath(public_path('fallback-media/platform_icon.jpg'), 'icon')
+             ->useFallbackUrl(asset('fallback-media/platform_default.jpg.jpg'), 'default')
+             ->useFallbackUrl(asset('fallback-media/platform_thumb.jpg'), 'thumb')
+             ->useFallbackUrl(asset('fallback-media/platform_icon.jpg'), 'icon');
 
         $this->addMediaCollection('hero')
              ->singleFile()
-             ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/platform_hero_default.jpg", 'default')
-             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/platform_hero_default.jpg", 'default');
+             ->useFallbackPath(public_path('fallback-media/platform_hero_default.jpg'), 'default')
+             ->useFallbackUrl(asset('fallback-media/platform_hero_default.jpg'), 'default');
     }
 }

@@ -85,14 +85,14 @@ class Game extends Model implements HasMedia
     {
         $this->addMediaCollection('cover')
              ->singleFile()
-             ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/game_default.jpg", 'default')
-             ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/game_thumb.jpg", 'thumb')
-             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/game_default.jpg", 'default')
-             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/game_thumb.jpg", 'thumb');
+             ->useFallbackPath(public_path('fallback-media/game_default.jpg'), 'default')
+             ->useFallbackPath(public_path('fallback-media/game_thumb.jpg'), 'thumb')
+             ->useFallbackUrl(asset('fallback-media/game_default.jpg'), 'default')
+             ->useFallbackUrl(asset('fallback-media/game_thumb.jpg'), 'thumb');
 
         $this->addMediaCollection('hero')
              ->singleFile()
-             ->useFallbackPath(config('filesystems.disks.public.root') . "/fallback/platform_hero_default.jpg", 'default')
-             ->useFallbackUrl(config('filesystems.disks.public.url') . "/fallback/platform_hero_default.jpg", 'default');
+             ->useFallbackPath(public_path('fallback-media/platform_hero_default.jpg'), 'default')
+             ->useFallbackUrl(asset('fallback-media/platform_hero_default.jpg'), 'default');
     }
 }
