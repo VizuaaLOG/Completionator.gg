@@ -37,10 +37,10 @@ class GameController extends Controller
         ]);
     }
 
-    public function create() {
+    public function create(Request $request) {
         return view('games.form', [
-            'platforms' => $this->platformService->allForDropdown(),
-            'storefronts' => $this->storefrontService->allForDropdown(),
+            'platforms' => $this->platformService->allForDropdown($request->user()),
+            'storefronts' => $this->storefrontService->allForDropdown($request->user()),
             'statuses' => $this->gameService->statusesForDropdown(),
             'priorities' => $this->gameService->prioritiesForDropdown(),
             'companies' => $this->companyService->getForDropdown(),
@@ -75,11 +75,11 @@ class GameController extends Controller
         ]);
     }
 
-    public function edit(Game $game) {
+    public function edit(Request $request, Game $game) {
         return view('games.form', [
             'game' => $game,
-            'platforms' => $this->platformService->allForDropdown(),
-            'storefronts' => $this->storefrontService->allForDropdown(),
+            'platforms' => $this->platformService->allForDropdown($request->user()),
+            'storefronts' => $this->storefrontService->allForDropdown($request->user()),
             'statuses' => $this->gameService->statusesForDropdown(),
             'priorities' => $this->gameService->prioritiesForDropdown(),
             'companies' => $this->companyService->getForDropdown(),

@@ -22,7 +22,7 @@ class SideMenu extends Component
     {
         return $this
             ->platformService
-            ->all(['games'])
+            ->all(request()->user(), ['games'])
             ->map(function(Platform $platform) {
                 return (object) [
                     'title' => $platform->name,
@@ -36,7 +36,7 @@ class SideMenu extends Component
     {
         return $this
             ->storefrontService
-            ->all()
+            ->all(request()->user())
             ->map(function(Storefront $storefront) {
                 return (object) [
                     'title' => $storefront->name,

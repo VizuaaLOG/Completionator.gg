@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Storefronts;
 use Log;
 use Throwable;
 use App\Models\Storefront;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Services\StorefrontService;
 use App\Http\Controllers\Controller;
@@ -19,12 +20,13 @@ class StorefrontController extends Controller
         protected readonly StorefrontService $storefrontService,
     )
     {
+        $this->authorizeResource(Storefront::class, 'storefront');
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
         return view('storefronts.index', [
-            'storefronts' => $this->storefrontService->all(['games']),
+            'storefronts' => $this->storefrontService->all($request->user(), ['games']),
         ]);
     }
 
@@ -36,7 +38,7 @@ class StorefrontController extends Controller
     public function store(CreateStorefrontRequest $request): RedirectResponse
     {
         try {
-            $this->storefrontService->create($request->all());
+            $this->storefrontService->create($request->user(), $request->all());
 
             return redirect()
                 ->route('storefronts.index')

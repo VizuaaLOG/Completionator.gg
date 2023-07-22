@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use DB;
+use App\Models\User;
 use App\Models\Platform;
 use Illuminate\Support\Arr;
 use App\Exceptions\EntityInUseException;
@@ -13,16 +14,18 @@ use App\Exceptions\ErrorUpdatingEntityException;
 
 class PlatformService
 {
-    public function all(array $counts = []): EloquentCollection
+    public function all(User $user, array $counts = []): EloquentCollection
     {
         return Platform::query()
+            ->whereBelongsTo($user, 'user')
             ->withCount($counts)
             ->get();
     }
 
-    public function allForDropdown(): SupportCollection
+    public function allForDropdown(User $user): SupportCollection
     {
         return Platform::query()
+            ->whereBelongsTo($user, 'user')
             ->orderBy('name')
             ->get()
             ->map(function(Platform $platform) {
@@ -33,16 +36,19 @@ class PlatformService
             });
     }
 
-    public function create(array $data): Platform
+    public function create(User $user, array $data): Platform
     {
-        return DB::transaction(function() use($data) {
-            $platform = Platform::create(Arr::only($data, [
+        return DB::transaction(function() use($user, $data) {
+            $platform = Platform::make(Arr::only($data, [
                 'name',
                 'description',
                 'manufacturer',
                 'purchase_date',
                 'release_date',
             ]));
+
+            $platform->user()->associate($user);
+            $platform->save();
 
             if(Arr::has($data, 'cover')) {
                 $platform->addMedia(Arr::get($data, 'cover'))->toMediaCollection('cover');

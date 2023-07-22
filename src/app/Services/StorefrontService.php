@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use DB;
+use App\Models\User;
 use App\Models\Storefront;
 use Illuminate\Support\Arr;
 use App\Exceptions\EntityInUseException;
@@ -12,16 +13,18 @@ use App\Exceptions\ErrorUpdatingEntityException;
 
 class StorefrontService
 {
-    public function all(array $counts = []): EloquentCollection
+    public function all(User $user, array $counts = []): EloquentCollection
     {
         return Storefront::query()
+            ->whereBelongsTo($user, 'user')
             ->withCount($counts)
             ->get();
     }
 
-    public function allForDropdown(): SupportCollection
+    public function allForDropdown(User $user): SupportCollection
     {
         return Storefront::query()
+            ->whereBelongsTo($user, 'user')
             ->orderBy('name')
             ->get()
             ->map(function(Storefront $storefront) {
@@ -32,12 +35,15 @@ class StorefrontService
             });
     }
 
-    public function create(array $data): Storefront
+    public function create(User $user, array $data): Storefront
     {
-        return DB::transaction(function() use($data) {
-            $storefront = Storefront::create(Arr::only($data, [
+        return DB::transaction(function() use($user, $data) {
+            $storefront = Storefront::make(Arr::only($data, [
                 'name',
             ]));
+
+            $storefront->user()->associate($user);
+            $storefront->save();
 
             if(Arr::has($data, 'icon')) {
                 $storefront->addMedia(Arr::get($data, 'icon'))->toMediaCollection('icon');

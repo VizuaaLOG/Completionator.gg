@@ -20,12 +20,13 @@ class PlatformController extends Controller
         protected readonly PlatformService $platformService,
     )
     {
+        $this->authorizeResource(Platform::class, 'platform');
     }
 
     public function index(Request $request): View
     {
         return view('platforms.index', [
-            'platforms' => $this->platformService->all(),
+            'platforms' => $this->platformService->all($request->user()),
         ]);
     }
 
@@ -37,7 +38,7 @@ class PlatformController extends Controller
     public function store(CreatePlatformRequest $request): RedirectResponse
     {
         try {
-            $this->platformService->create($request->all());
+            $this->platformService->create($request->user(), $request->all());
 
             return redirect()
                 ->route('platforms.index')
