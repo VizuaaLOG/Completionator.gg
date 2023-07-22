@@ -7,6 +7,7 @@ use Throwable;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use App\Services\GameService;
+use App\Services\GenreService;
 use App\Services\CompanyService;
 use App\Services\PlatformService;
 use Illuminate\Contracts\View\View;
@@ -23,6 +24,7 @@ class GameController extends Controller
         protected readonly PlatformService $platformService,
         protected readonly StorefrontService $storefrontService,
         protected readonly CompanyService $companyService,
+        protected readonly GenreService $genreService,
     )
     {
     }
@@ -41,6 +43,7 @@ class GameController extends Controller
             'statuses' => $this->gameService->statusesForDropdown(),
             'priorities' => $this->gameService->prioritiesForDropdown(),
             'companies' => $this->companyService->getForDropdown(),
+            'genres' => $this->genreService->getForDropdown(),
         ]);
     }
 
@@ -79,6 +82,7 @@ class GameController extends Controller
             'statuses' => $this->gameService->statusesForDropdown(),
             'priorities' => $this->gameService->prioritiesForDropdown(),
             'companies' => $this->companyService->getForDropdown(),
+            'genres' => $this->genreService->getForDropdown(),
         ]);
     }
 

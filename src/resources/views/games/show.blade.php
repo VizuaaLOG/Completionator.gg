@@ -51,7 +51,12 @@
 
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Genre</strong>
-                            Adventure, Shooter
+                            @forelse($game->genres as $genre)
+                                <a href="{{ route('genres.show', ['genre' => $genre]) }}">{{ $genre->name }}</a>
+                                @if(!$loop->last),@endif
+                            @empty
+                                -
+                            @endforelse
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">

@@ -17,10 +17,11 @@
             <li><a class="dropdown-item" href="{{ route('platforms.create') }}">Add Platform</a></li>
             <li><a class="dropdown-item" href="{{ route('storefronts.create') }}">Add Storefront</a></li>
             <li><a class="dropdown-item" href="{{ route('companies.create') }}">Add Company</a></li>
+            <li><a class="dropdown-item" href="{{ route('genres.create') }}">Add Genre</a></li>
         </ul>
     </div>
 
-    <ul class="list-unstyled d-flex flex-column gap-4 mt-4">
+    <ul class="list-unstyled d-flex flex-column gap-1 mt-4">
         <x-layout.side-menu.side-menu-group
             title="Your Dashboard"
             route="dashboard" />
@@ -42,5 +43,9 @@
         <x-layout.side-menu.side-menu-group
             title="Companies"
             route="companies.index" />
+
+        <x-layout.side-menu.side-menu-group
+            title="Genres"
+            route="genres.index" />
     </ul>
 </div>

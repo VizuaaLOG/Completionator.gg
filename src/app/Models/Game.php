@@ -70,6 +70,11 @@ class Game extends Model implements HasMedia
         return $this->belongsToMany(Company::class, 'game_publishers');
     }
 
+    public function genres(): BelongsToMany
+    {
+        return $this->belongsToMany(Genre::class, 'game_genres');
+    }
+
     /**
      * @throws InvalidManipulation
      */

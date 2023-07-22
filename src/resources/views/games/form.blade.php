@@ -42,12 +42,8 @@
                                     label="Genre"
                                     required
                                     multiple
-                                    :options="[
-                                        [
-                                            'label' => 'Hello',
-                                            'value' => 1,
-                                        ]
-                                    ]" />
+                                    :options="$genres"
+                                    :value="empty($game) ? '' : $game->genres()->pluck('genres.id')" />
 
                     <x-forms.select name="developers[]"
                                     label="Developer"
