@@ -40,6 +40,11 @@ class Game extends Model implements HasMedia
         });
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function platforms(): BelongsToMany
     {
         return $this->belongsToMany(Platform::class);

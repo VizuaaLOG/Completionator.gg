@@ -27,12 +27,13 @@ class GameController extends Controller
         protected readonly GenreService $genreService,
     )
     {
+        $this->authorizeResource(Game::class, 'game');
     }
 
     public function index(Request $request): View
     {
         return view('games.index', [
-            'games' => $this->gameService->paginated(),
+            'games' => $this->gameService->paginated($request->user()),
         ]);
     }
 
@@ -50,7 +51,7 @@ class GameController extends Controller
     public function store(CreateGameRequest $request): RedirectResponse
     {
         try {
-            $this->gameService->create($request->all());
+            $this->gameService->create($request->user(), $request->all());
 
             return redirect()
                 ->route('games.index')

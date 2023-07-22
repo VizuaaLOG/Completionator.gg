@@ -4,9 +4,11 @@ namespace App\Services;
 
 use DB;
 use App\Models\Game;
+use App\Models\User;
 use App\Models\GameStatus;
 use Illuminate\Support\Arr;
 use App\Models\GamePriority;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -14,40 +16,45 @@ use App\Exceptions\ErrorUpdatingEntityException;
 
 class GameService
 {
-    public function paginated(int|null $perPage = null): LengthAwarePaginator
-    {
-        return Game::paginate($perPage ?? config('pagination.default'));
-    }
-
-    public function getCurrentlyPlaying(): EloquentCollection
+    public function paginated(User $user, int|null $perPage = null): LengthAwarePaginator
     {
         return Game::query()
+            ->whereBelongsTo($user)
+            ->paginate($perPage ?? config('pagination.default'));
+    }
+
+    public function getCurrentlyPlaying(User $user): EloquentCollection
+    {
+        return Game::query()
+            ->whereBelongsTo($user)
             ->where('status_id', GameStatus::PLAYING)
             ->orderBy('name')
             ->get();
     }
 
-    public function getRecentlyAdded(int $limit = 10): EloquentCollection
+    public function getRecentlyAdded(User $user, int $limit = 10): EloquentCollection
     {
         return Game::query()
+            ->whereBelongsTo($user)
             ->orderByDesc('created_at')
             ->limit($limit)
             ->get();
     }
 
-    public function getRecentlyCompleted(int $limit = 10): EloquentCollection
+    public function getRecentlyCompleted(User $user, int $limit = 10): EloquentCollection
     {
         return Game::query()
+            ->whereBelongsTo($user)
             ->orderByDesc('completed_at')
             ->where('status_id', GameStatus::COMPLETED)
             ->limit($limit)
             ->get();
     }
 
-    public function create(array $data): Game
+    public function create(User $user, array $data): Game
     {
-        return DB::transaction(function() use($data) {
-            $game = Game::create(Arr::only($data, [
+        return DB::transaction(function() use($user, $data) {
+            $game = Game::make(Arr::only($data, [
                 'name',
                 'description',
                 'status_id',
@@ -55,6 +62,9 @@ class GameService
                 'purchase_date',
                 'release_date',
             ]));
+
+            $game->user()->associate($user);
+            $game->save();
 
             $game->platforms()->sync(Arr::get($data, 'platforms'));
             $game->storefronts()->sync(Arr::get($data, 'storefronts'));

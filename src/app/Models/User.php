@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -15,6 +17,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function games(): HasMany
+    {
+        return $this->hasMany(Game::class);
+    }
 
     public function role(): BelongsTo
     {
