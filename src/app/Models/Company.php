@@ -23,12 +23,14 @@ class Company extends Model implements HasMedia
 
     public function published_games(): BelongsToMany
     {
-        return $this->belongsToMany(Game::class, 'game_publishers');
+        return $this->belongsToMany(Game::class, 'game_publishers')
+            ->whereBelongsTo(request()->user());
     }
 
     public function developed_games(): BelongsToMany
     {
-        return $this->belongsToMany(Game::class, 'game_developers');
+        return $this->belongsToMany(Game::class, 'game_developers')
+            ->whereBelongsTo(request()->user());
     }
 
     /**

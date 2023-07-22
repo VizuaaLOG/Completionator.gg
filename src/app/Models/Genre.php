@@ -14,6 +14,7 @@ class Genre extends Model
 
     public function games(): BelongsToMany
     {
-        return $this->belongsToMany(Game::class, 'game_genres');
+        return $this->belongsToMany(Game::class, 'game_genres')
+            ->whereBelongsTo(request()->user());
     }
 }

@@ -14,7 +14,7 @@
                         @endforeach
                     </div>
                 @else
-                    <div class="alert alert-info">No games associated.</div>
+                    <div class="alert alert-info">You do not have any games associated with this genre.</div>
                 @endif
             </div>
         </div>
