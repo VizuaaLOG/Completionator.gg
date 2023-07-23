@@ -6,18 +6,18 @@ use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Image\Exceptions\InvalidManipulation;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Game extends Model implements HasMedia
+class DownloadableContent extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
     protected $guarded = [];
+    protected $table = 'downloadable_content';
 
     protected $casts = [
         'release_date' => 'date',
@@ -29,36 +29,31 @@ class Game extends Model implements HasMedia
     {
         parent::__construct($attributes);
 
-        self::saving(function(Game $game) {
+        self::saving(function(DownloadableContent $dlc) {
             if(
-                $game->status_id == GameStatus::COMPLETED
-                && is_null($game->completed_at)
+                $dlc->status_id == GameStatus::COMPLETED
+                && is_null($dlc->completed_at)
             ) {
-                $game->completed_at = now();
-            } else if($game->status_id != GameStatus::COMPLETED) {
-                $game->completed_at = null;
+                $dlc->completed_at = now();
+            } else if($dlc->status_id != GameStatus::COMPLETED) {
+                $dlc->completed_at = null;
             }
         });
     }
 
-    public function downloadable_content(): HasMany
+    public function game(): BelongsTo
     {
-        return $this->hasMany(DownloadableContent::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Game::class);
     }
 
     public function platforms(): BelongsToMany
     {
-        return $this->belongsToMany(Platform::class);
+        return $this->belongsToMany(Platform::class, 'downloadable_content_platforms');
     }
 
     public function storefronts(): BelongsToMany
     {
-        return $this->belongsToMany(Storefront::class);
+        return $this->belongsToMany(Storefront::class, 'downloadable_content_storefronts');
     }
 
     public function status(): BelongsTo
@@ -73,17 +68,17 @@ class Game extends Model implements HasMedia
 
     public function developers(): BelongsToMany
     {
-        return $this->belongsToMany(Company::class, 'game_developers');
+        return $this->belongsToMany(Company::class, 'downloadable_content_developers');
     }
 
     public function publishers(): BelongsToMany
     {
-        return $this->belongsToMany(Company::class, 'game_publishers');
+        return $this->belongsToMany(Company::class, 'downloadable_content_publishers');
     }
 
     public function genres(): BelongsToMany
     {
-        return $this->belongsToMany(Genre::class, 'game_genres');
+        return $this->belongsToMany(Genre::class, 'downloadable_content_genres');
     }
 
     /**

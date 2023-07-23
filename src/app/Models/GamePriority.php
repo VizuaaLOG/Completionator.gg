@@ -14,6 +14,7 @@ class GamePriority extends Model
     const HIGH = 3;
 
     protected $guarded = [];
+    protected $table = 'game_priorities';
 
     public function getForeignKey()
     {

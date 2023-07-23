@@ -16,6 +16,7 @@ class GameStatus extends Model
     const RETIRED = 5;
 
     protected $guarded = [];
+    protected $table = 'game_statuses';
 
     public function getForeignKey()
     {

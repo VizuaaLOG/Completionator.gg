@@ -3,8 +3,8 @@
 @section('content')
     <x-layout.screen>
         <div class="position-relative mx-n3">
-            <img alt="{{ $game->name }} Hero Image" class="w-100"
-                 src="{{ $game->getFirstMediaUrl('hero', 'default') }}">
+            <img alt="{{ $dlc->name }} Hero Image" class="w-100"
+                 src="{{ $dlc->getFirstMediaUrl('hero', 'default') }}">
             <div class="bg-overlay position-absolute top-0 start-0 w-100 h-100"></div>
         </div>
 
@@ -12,8 +12,8 @@
             <div class="row position-relative z-1">
                 <div class="col-4 col-lg-3 col-xxl-2">
                     <div style="margin-top: -200px;">
-                        <img alt="{{ $game->name }} Cover Image" class="w-100 rounded"
-                             src="{{ $game->getFirstMediaUrl('cover', 'default') }}">
+                        <img alt="{{ $dlc->name }} Cover Image" class="w-100 rounded"
+                             src="{{ $dlc->getFirstMediaUrl('cover', 'default') }}">
                     </div>
 
                     <div class="text-center mt-3">
@@ -25,10 +25,9 @@
                             </button>
 
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('downloadable_content.create', ['game' => $game]) }}">Add Downloadable Content</a></li>
-                                <li><a class="dropdown-item" href="{{ route('games.edit', ['game' => $game]) }}">Edit</a></li>
+                                <li><a class="dropdown-item" href="{{ route('downloadable_content.edit', ['game' => $game, 'downloadable_content' => $dlc]) }}">Edit</a></li>
                                 <li>
-                                    <x-delete-entity-button :route="route('games.destroy', ['game' => $game])" />
+                                    <x-delete-entity-button :route="route('downloadable_content.destroy', ['game' => $game, 'downloadable_content' => $dlc])" />
                                 </li>
                             </ul>
                         </div>
@@ -37,22 +36,22 @@
                     <ul class="list-group mt-3">
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Release Date</strong>
-                            {{ $game->release_date?->toDateString() ?? '-' }}
+                            {{ $dlc->release_date?->toDateString() ?? '-' }}
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Purchase Date</strong>
-                            {{ $game->purchase_date?->toDateString() ?? '-' }}
+                            {{ $dlc->purchase_date?->toDateString() ?? '-' }}
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Completed Date</strong>
-                            {{ $game->completed_at?->toDateTimeString() ?? '-' }}
+                            {{ $dlc->completed_at?->toDateTimeString() ?? '-' }}
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Genre</strong>
-                            @forelse($game->genres as $genre)
+                            @forelse($dlc->genres as $genre)
                                 <a href="{{ route('genres.show', ['genre' => $genre]) }}">{{ $genre->name }}</a>
                                 @if(!$loop->last),@endif
                             @empty
@@ -62,7 +61,7 @@
 
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Developer</strong>
-                            @forelse($game->developers as $developer)
+                            @forelse($dlc->developers as $developer)
                                 <a href="{{ route('companies.show', ['company' => $developer]) }}">{{ $developer->name }}</a>
                                 @if(!$loop->last),@endif
                             @empty
@@ -72,7 +71,7 @@
 
                         <li class="list-group-item d-flex justify-content-between">
                             <strong>Publisher</strong>
-                            @forelse($game->publishers as $publisher)
+                            @forelse($dlc->publishers as $publisher)
                                 <a href="{{ route('companies.show', ['company' => $publisher]) }}">{{ $publisher->name }}</a>
                                 @if(!$loop->last),@endif
                             @empty
@@ -82,9 +81,16 @@
                     </ul>
 
                     <div class="mt-3">
+                        <h2>Base Game</h2>
+
+                        <x-games.card
+                            :game="$dlc->game" />
+                    </div>
+
+                    <div class="mt-3">
                         <h2>Platforms</h2>
 
-                        @foreach($game->platforms as $platform)
+                        @foreach($dlc->platforms as $platform)
                             <x-platforms.card-horizontal
                                 :platform="$platform"
                                 @class([
@@ -96,7 +102,7 @@
                     <div class="mt-3">
                         <h2>Storefronts</h2>
 
-                        @foreach($game->storefronts as $storefront)
+                        @foreach($dlc->storefronts as $storefront)
                             <x-storefronts.card-horizontal
                                 :storefront="$storefront"
                                 @class([
@@ -107,18 +113,11 @@
                 </div>
 
                 <div class="text-break col-8 col-lg-9 col-xxl-10">
-                    <h1 class="display-2 mb-0">{{ $game->name }}</h1>
+                    <h1 class="display-2 mb-0">{{ $dlc->name }}</h1>
                     <div class="d-flex gap-2 mb-2">
-                        <span class="badge text-bg-{{ $game->status->type }}">{{ $game->status->name }}</span>
+                        <span class="badge text-bg-{{ $dlc->status->type }}">{{ $dlc->status->name }}</span>
                     </div>
-                    <p class="lead">{{ $game->description }}</p>
-
-                    @if($game->downloadable_content->isNotEmpty())
-                        <h2>Downloadable Content</h2>
-                        @foreach($game->downloadable_content as $dlc)
-                            <x-games.dlc :game="$game" :dlc="$dlc" />
-                        @endforeach
-                    @endif
+                    <p class="lead">{{ $dlc->description }}</p>
                 </div>
             </div>
         </div>
