@@ -3,22 +3,31 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "run-p type-check build-only",
+        "build": "run-p type-check \"build-only {@}\" --",
         "preview": "vite preview",
         "build-only": "vite build",
-        "type-check": "vue-tsc --noEmit"
+        "type-check": "vue-tsc --build --force"
     },
     "dependencies": {
-        "bootstrap": "^5.3.0"
+        "@vee-validate/zod": "^4.12.3",
+        "axios": "^1.6.3",
+        "pinia": "^2.1.7",
+        "vee-validate": "^4.12.3",
+        "vue": "^3.3.11",
+        "vue-router": "^4.2.5",
+        "vuetify": "^3.4.8",
+        "zod": "^3.22.4"
     },
     "devDependencies": {
-        "@types/bootstrap": "^5.2.6",
-        "@types/node": "^18.14.2",
-        "flatpickr": "^4.6.13",
-        "laravel-vite-plugin": "^0.7.2",
-        "npm-run-all": "^4.1.5",
-        "sass": "^1.63.6",
-        "tom-select": "^2.2.2",
-        "vite": "^4.1.4"
+        "@mdi/font": "^7.4.47",
+        "@tsconfig/node18": "^18.2.2",
+        "@types/node": "^18.19.3",
+        "@vitejs/plugin-vue": "^4.5.2",
+        "@vue/tsconfig": "^0.5.0",
+        "laravel-vite-plugin": "^1.0",
+        "npm-run-all2": "^6.1.1",
+        "typescript": "~5.3.0",
+        "vite": "^5.0.10",
+        "vue-tsc": "^1.8.25"
     }
 }

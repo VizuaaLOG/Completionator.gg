@@ -1,0 +1,24 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
+    "include": [
+        "env.d.ts",
+        "resources/**/*",
+        "resources/**/*.vue"
+    ],
+    "exclude": [
+        "resources/**/__tests__/*"
+    ],
+    "compilerOptions": {
+        "composite": true,
+        "noEmit": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./resources/js/*"
+            ]
+        },
+        "module": "esnext",
+        "moduleResolution": "Node",
+        "strict": true
+    }
+}

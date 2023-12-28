@@ -8,8 +8,10 @@
         "php": "^8.1",
         "ext-simplexml": "*",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel/fortify": "^1.19",
         "laravel/framework": "^10.10",
-        "laravel/ui": "^4.2",
+        "laravel/sanctum": "^3.3",
+        "league/fractal": "^0.20.1",
         "spatie/laravel-medialibrary": "^10.0.0"
     },
     "require-dev": {
