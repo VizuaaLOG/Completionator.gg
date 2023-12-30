@@ -6,6 +6,7 @@
         label: String,
         placeholder: String,
         modelValue: String,
+        disabled: Boolean,
     });
 
     defineEmits([
@@ -29,6 +30,7 @@
         :label="label"
         :placeholder="placeholder"
         :model-value="modelValue"
+        :disabled="disabled"
         append-inner-icon="mdi-calendar"
         @update:model-value="$emit('update:modelValue', $event)"
         @click:append-inner="pickerModalOpen = true"
