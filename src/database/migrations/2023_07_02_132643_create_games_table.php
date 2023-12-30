@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('games', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->foreignIdFor(\App\Models\GameStatus::class)->constrained('game_statuses')->restrictOnDelete();
-            $table->foreignIdFor(\App\Models\GamePriority::class)->constrained('game_priorities')->restrictOnDelete();
+            $table->dateTime('completed_at')->nullable();
 
             $table->timestamps();
         });
