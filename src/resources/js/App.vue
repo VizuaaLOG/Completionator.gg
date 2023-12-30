@@ -25,6 +25,32 @@
                 <template #append>
                     <v-btn
                         v-show="authStore.authenticated"
+                        prepend-icon="mdi-plus"
+                        variant="flat"
+                        color="blue-darken-1"
+                        class="mr-3"
+                    >
+                        Add
+
+                        <v-menu activator="parent">
+                            <v-list>
+                                <v-list-item :to="{name: 'games.create'}">
+                                    <v-list-item-title>Add Game</v-list-item-title>
+                                </v-list-item>
+
+                                <v-list-item>
+                                    <v-list-item-title>Add Storefront</v-list-item-title>
+                                </v-list-item>
+
+                                <v-list-item>
+                                    <v-list-item-title>Add Platform</v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </v-btn>
+
+                    <v-btn
+                        v-show="authStore.authenticated"
                         icon="mdi-logout"
                         flat
                         @click="authStore.logout()"

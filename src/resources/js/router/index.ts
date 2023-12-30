@@ -2,6 +2,7 @@ import {createRouter, createWebHistory, START_LOCATION} from 'vue-router'
 import HomeView from '@/views/HomeView.vue';
 import {useAuthStore} from '@/stores/auth';
 import {useGlobalStore} from '@/stores/global';
+import CreateGameView from '@/views/games/CreateView.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -12,6 +13,18 @@ const router = createRouter({
             component: HomeView,
             meta: { requiresAuth: true },
         },
+        {
+            path: '/games',
+            name: 'games.index',
+            component: HomeView,
+            meta: { requiresAuth: true },
+        },
+        {
+            path: '/games/create',
+            name: 'games.create',
+            component: CreateGameView,
+            meta: { requiresAuth: true },
+        }
     ]
 });
 

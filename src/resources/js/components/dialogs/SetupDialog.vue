@@ -149,7 +149,7 @@
                         </v-btn>
 
                         <v-btn
-                            color="blue-darken-2"
+                            color="blue-darken-1"
                             variant="flat"
                             block
                             v-show="stage === 2"
