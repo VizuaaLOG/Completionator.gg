@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', {
     }),
     actions: {
         async login(email: string, password: string) {
-            await axios.get('sanctum/csrf-cookie');
+            await axios.get('/sanctum/csrf-cookie');
             await axios
                 .post('login', {
                     email,
@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('auth', {
         },
 
         async logout() {
-            await axios.post('logout');
+            await axios.post('/logout');
 
             this.$reset();
 
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore('auth', {
 
         async getUserDetails() {
             try {
-                const response = await axios.get('api/v1/me');
+                const response = await axios.get('/api/v1/me');
 
                 this.$patch({
                     authenticated: true,

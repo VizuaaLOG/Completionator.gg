@@ -10,7 +10,7 @@ export const useGlobalStore = defineStore('global', {
     actions: {
         async fetchSystem() {
             await axios
-                .get('api/v1/system')
+                .get('/api/v1/system')
                 .then((response) => {
                     this.showInitialSetup = !response.data.data.setup_complete;
                 })
