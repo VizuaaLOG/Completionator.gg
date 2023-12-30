@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('games', function (Blueprint $table) {
+        Schema::create('user_games', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
-            $table->string('name');
-            $table->longText('description')->nullable();
+            $table->foreignIdFor(\App\Models\Game::class)->constrained()->restrictOnDelete();
+            $table->foreignIdFor(\App\Models\GameStatus::class)->constrained()->restrictOnDelete();
             $table->dateTime('completed_at')->nullable();
-
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('games');
+        Schema::dropIfExists('user_games');
     }
 };

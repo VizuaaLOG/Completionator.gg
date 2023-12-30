@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\UserRole;
+use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration {
@@ -9,9 +9,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        DB::table('user_roles')
+        DB::table('roles')
           ->insert([
-              'id'     => UserRole::USER,
+              'id'     => Role::USER,
               'name'   => 'User',
               'system' => true,
           ])
@@ -23,8 +23,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        DB::table('user_roles')
-          ->where('id', UserRole::USER)
+        DB::table('roles')
+          ->where('id', Role::USER)
           ->delete()
         ;
     }

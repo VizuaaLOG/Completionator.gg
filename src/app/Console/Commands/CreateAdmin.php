@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
-use App\Models\UserRole;
+use App\Models\Role;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 
@@ -41,7 +41,7 @@ class CreateAdmin extends Command
             'name'         => $name,
             'email'        => $email,
             'password'     => Hash::make($password),
-            'user_role_id' => UserRole::ADMIN,
+            'role_id' => Role::ADMIN,
         ]);
 
         $this->line('New user created. Login using the email address and password given.');

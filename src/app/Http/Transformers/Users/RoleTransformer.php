@@ -2,12 +2,12 @@
 
 namespace App\Http\Transformers\Users;
 
-use App\Models\UserRole;
+use App\Models\Role;
 use League\Fractal\TransformerAbstract;
 
 class RoleTransformer extends TransformerAbstract
 {
-    public function transform(UserRole $role): array
+    public function transform(Role $role): array
     {
         return [
             'id'     => $role->id,

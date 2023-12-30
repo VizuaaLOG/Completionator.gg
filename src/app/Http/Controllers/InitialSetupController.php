@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Log;
 use Throwable;
-use App\Models\UserRole;
+use App\Models\Role;
 use App\Services\UserService;
 use Illuminate\Http\Response;
 use App\Services\SettingService;
@@ -30,7 +30,7 @@ class InitialSetupController extends Controller
             }
 
             DB::transaction(function () use ($request) {
-                $this->userService->create($request->input('admin'), UserRole::ADMIN);
+                $this->userService->create($request->input('admin'), Role::ADMIN);
                 $this->settingService->set('system.setup.complete', true);
             });
 

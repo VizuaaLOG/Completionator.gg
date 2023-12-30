@@ -23,7 +23,7 @@ class UserService
             'name'         => Arr::get($data, 'name'),
             'email'        => Arr::get($data, 'email'),
             'password'     => Hash::make(Arr::get($data, 'password')),
-            'user_role_id' => $role,
+            'role_id' => $role,
         ]);
     }
 
